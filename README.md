@@ -14,19 +14,83 @@ A Jetpack Compose library specifically optimized for E-Ink displays, particularl
 
 ## 🚀 Installation
 
-### Step 1: Add the Library to Your Project
+### Option 1: Local Library Integration (Recommended for Development)
 
-Since this is currently a local library, include it in your project:
+Since this library is not yet published to a remote repository, you'll need to include it as a local module in your project:
 
+#### 1.1: Clone the Repository
+```bash
+# Clone into your project root or as a submodule
+git clone https://github.com/avishalom/eink-compose.git
+# OR add as git submodule
+git submodule add https://github.com/avishalom/eink-compose.git
+```
+
+#### 1.2: Configure Project Structure
 ```kotlin
-// In your app's settings.gradle.kts
-include(":eink-compose:library")
+// In your project's settings.gradle.kts
+include(":app")
+include(":eink-compose:library")  // Add this line
 
-// In your app's build.gradle.kts
-dependencies {
-    implementation(project(":eink-compose:library"))
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 ```
+
+#### 1.3: Add Dependency
+```kotlin
+// In your app module's build.gradle.kts
+dependencies {
+    implementation(project(":eink-compose:library"))
+    
+    // Ensure you have the required Compose dependencies
+    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.activity:activity-compose:1.8.0")
+}
+```
+
+### Option 2: Manual Library Copy (Alternative)
+
+If you prefer to copy the library code directly into your project:
+
+#### 2.1: Copy Library Module
+```bash
+# Copy the library folder to your project
+cp -r eink-compose/library ./eink-compose-lib
+```
+
+#### 2.2: Update settings.gradle.kts
+```kotlin
+include(":app")
+include(":eink-compose-lib")  // Your renamed library module
+```
+
+#### 2.3: Add Dependency
+```kotlin
+// In your app's build.gradle.kts
+dependencies {
+    implementation(project(":eink-compose-lib"))
+}
+```
+
+### Option 3: Future Maven/Gradle Repository (Coming Soon)
+
+Once published to Maven Central or a custom repository, installation will be simplified to:
+
+```kotlin
+// This will be available in future versions
+dependencies {
+    implementation("com.eink.compose:library:1.0.0")
+}
+```
+
+> **Note**: The library will be published to a Gradle repository in a future release. For now, local integration is the recommended approach.
 
 ### Step 2: Update Your Build Configuration
 
