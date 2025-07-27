@@ -303,5 +303,5 @@ object EInkTextFieldDefaults {
 
 @Composable
 private fun MutableInteractionSource.collectIsFocusedAsState(): State<Boolean> {
-    return remember { derivedStateOf { false } } // Simplified for E-Ink - focus doesn't need visual feedback
+    return androidx.compose.foundation.interaction.collectIsFocusedAsState()
 }
