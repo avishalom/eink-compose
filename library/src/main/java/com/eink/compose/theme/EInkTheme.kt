@@ -246,6 +246,6 @@ internal val LocalEInkTypography = androidx.compose.runtime.compositionLocalOf<E
     error("No EInkTypography provided")
 }
 
-val LocalEInkContentColor = androidx.compose.runtime.compositionLocalOf<Color> {
+internal val LocalEInkContentColor = androidx.compose.runtime.compositionLocalOf<Color> {
     Color.Unspecified
 }
