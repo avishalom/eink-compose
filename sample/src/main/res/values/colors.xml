@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- E-Ink optimized colors -->
+    <color name="eink_black">#FF000000</color>
+    <color name="eink_white">#FFFFFFFF</color>
+    <color name="eink_gray_light">#FFEEEEEE</color>
+    <color name="eink_gray_dark">#FF333333</color>
+</resources>

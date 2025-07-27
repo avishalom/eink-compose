@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EInk Compose Showcase</string>
+    <string name="showcase_title">EInk Component Showcase</string>
+    <string name="typography_section">Typography</string>
+    <string name="buttons_section">Buttons</string>
+    <string name="cards_section">Cards</string>
+    <string name="textfields_section">Text Fields</string>
+    <string name="layout_section">Layout</string>
+    <string name="theme_section">Themes</string>
+</resources>
