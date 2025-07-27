@@ -7,6 +7,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -33,9 +34,12 @@ fun <T> PaginatedList(
     items: List<T>,
     modifier: Modifier = Modifier,
     itemsPerPage: Int = 10,
-    pagerState: PagerState = rememberPagerState(pageCount = { 
-        if (items.isEmpty()) 1 else (items.size + itemsPerPage - 1) / itemsPerPage 
-    }),
+    pagerState: PagerState = run {
+        val pageCount = remember(items.size, itemsPerPage) {
+            if (items.isEmpty()) 1 else (items.size + itemsPerPage - 1) / itemsPerPage
+        }
+        rememberPagerState(pageCount = { pageCount })
+    },
     showPageIndicator: Boolean = true,
     indicatorStyle: PageIndicatorStyle = PageIndicatorStyle.Numbers,
     pageContent: @Composable (items: List<T>, pageIndex: Int) -> Unit
@@ -91,9 +95,12 @@ fun <T> SimplePaginatedList(
     items: List<T>,
     modifier: Modifier = Modifier,
     itemsPerPage: Int = 10,
-    pagerState: PagerState = rememberPagerState(pageCount = { 
-        if (items.isEmpty()) 1 else (items.size + itemsPerPage - 1) / itemsPerPage 
-    }),
+    pagerState: PagerState = run {
+        val pageCount = remember(items.size, itemsPerPage) {
+            if (items.isEmpty()) 1 else (items.size + itemsPerPage - 1) / itemsPerPage
+        }
+        rememberPagerState(pageCount = { pageCount })
+    },
     showPageIndicator: Boolean = true,
     indicatorStyle: PageIndicatorStyle = PageIndicatorStyle.Numbers,
     itemContent: @Composable (item: T, index: Int) -> Unit
@@ -130,9 +137,12 @@ fun <T> PaginatedGrid(
     columns: Int,
     modifier: Modifier = Modifier,
     itemsPerPage: Int = columns * 5, // Default to 5 rows per page
-    pagerState: PagerState = rememberPagerState(pageCount = { 
-        if (items.isEmpty()) 1 else (items.size + itemsPerPage - 1) / itemsPerPage 
-    }),
+    pagerState: PagerState = run {
+        val pageCount = remember(items.size, itemsPerPage) {
+            if (items.isEmpty()) 1 else (items.size + itemsPerPage - 1) / itemsPerPage
+        }
+        rememberPagerState(pageCount = { pageCount })
+    },
     showPageIndicator: Boolean = true,
     indicatorStyle: PageIndicatorStyle = PageIndicatorStyle.Numbers,
     itemContent: @Composable (item: T, index: Int) -> Unit

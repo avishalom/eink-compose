@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -125,6 +126,7 @@ fun EInkOutlinedCard(
 /**
  * Card colors for E-Ink themes
  */
+@Stable
 data class EInkCardColors(
     val containerColor: Color,
     val contentColor: Color,

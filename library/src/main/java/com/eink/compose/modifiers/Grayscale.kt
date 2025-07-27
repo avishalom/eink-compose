@@ -21,17 +21,16 @@ import androidx.compose.ui.geometry.Rect
 fun Modifier.grayscale(): Modifier = this.then(GrayscaleModifier)
 
 private object GrayscaleModifier : DrawModifier {
+    // Cached objects to avoid allocations on every draw
+    private val saturationMatrix = ColorMatrix().apply { 
+        setToSaturation(0f) // 0f = completely desaturated (grayscale)
+    }
+    private val saturationFilter = ColorFilter.colorMatrix(saturationMatrix)
+    private val paint = Paint().apply {
+        colorFilter = saturationFilter
+    }
+    
     override fun ContentDrawScope.draw() {
-        // Create a saturation matrix that removes all color information
-        val saturationMatrix = ColorMatrix().apply { 
-            setToSaturation(0f) // 0f = completely desaturated (grayscale)
-        }
-        
-        val saturationFilter = ColorFilter.colorMatrix(saturationMatrix)
-        val paint = Paint().apply {
-            colorFilter = saturationFilter
-        }
-        
         // Draw content into a layer with the grayscale filter applied
         drawIntoCanvas { canvas ->
             canvas.saveLayer(
@@ -52,22 +51,22 @@ private object GrayscaleModifier : DrawModifier {
 fun Modifier.luminanceGrayscale(): Modifier = this.then(LuminanceGrayscaleModifier)
 
 private object LuminanceGrayscaleModifier : DrawModifier {
-    override fun ContentDrawScope.draw() {
-        // Standard luminance weights (ITU-R BT.709)
-        val luminanceMatrix = ColorMatrix(
-            floatArrayOf(
-                0.2126f, 0.7152f, 0.0722f, 0f, 0f,  // Red channel
-                0.2126f, 0.7152f, 0.0722f, 0f, 0f,  // Green channel
-                0.2126f, 0.7152f, 0.0722f, 0f, 0f,  // Blue channel
-                0f, 0f, 0f, 1f, 0f                   // Alpha channel (unchanged)
-            )
+    // Cached objects to avoid allocations on every draw
+    // Standard luminance weights (ITU-R BT.709)
+    private val luminanceMatrix = ColorMatrix(
+        floatArrayOf(
+            0.2126f, 0.7152f, 0.0722f, 0f, 0f,  // Red channel
+            0.2126f, 0.7152f, 0.0722f, 0f, 0f,  // Green channel
+            0.2126f, 0.7152f, 0.0722f, 0f, 0f,  // Blue channel
+            0f, 0f, 0f, 1f, 0f                   // Alpha channel (unchanged)
         )
-        
-        val luminanceFilter = ColorFilter.colorMatrix(luminanceMatrix)
-        val paint = Paint().apply {
-            colorFilter = luminanceFilter
-        }
-        
+    )
+    private val luminanceFilter = ColorFilter.colorMatrix(luminanceMatrix)
+    private val paint = Paint().apply {
+        colorFilter = luminanceFilter
+    }
+    
+    override fun ContentDrawScope.draw() {
         drawIntoCanvas { canvas ->
             canvas.saveLayer(
                 bounds = Rect(0f, 0f, size.width, size.height),

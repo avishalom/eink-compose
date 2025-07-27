@@ -27,10 +27,19 @@ object NoRippleInteractionSource : MutableInteractionSource {
 /**
  * Creates a remembered NoRippleInteractionSource.
  * This is useful when you need a fresh instance for each composable.
+ * Creates a new instance to avoid shared state issues.
  */
 @Composable
 fun rememberNoRippleInteractionSource(): MutableInteractionSource {
-    return remember { NoRippleInteractionSource }
+    return remember { 
+        object : MutableInteractionSource {
+            override val interactions: Flow<Interaction> = emptyFlow()
+            override suspend fun emit(interaction: Interaction) {
+                // No-op: swallow all interactions
+            }
+            override fun tryEmit(interaction: Interaction): Boolean = true
+        }
+    }
 }
 
 /**

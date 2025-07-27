@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RectangleShape
-import androidx.compose.material3.LocalContentColor
+import com.eink.compose.theme.LocalEInkContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -166,7 +166,7 @@ fun EInkSurface(
             )
     ) {
         CompositionLocalProvider(
-            LocalContentColor provides contentColor,
+            LocalEInkContentColor provides contentColor,
             content = content
         )
     }
