@@ -9,6 +9,7 @@ import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -26,6 +27,7 @@ enum class EInkColorVariant {
 /**
  * E-Ink color scheme data class that holds theme colors
  */
+@Stable
 data class EInkColorScheme(
     val primary: Color,
     val onPrimary: Color,
@@ -49,6 +51,7 @@ data class EInkColorScheme(
 /**
  * E-Ink typography system
  */
+@Stable
 data class EInkTypographySystem(
     val displayLarge: TextStyle,
     val displayMedium: TextStyle,
@@ -231,6 +234,9 @@ fun eInkColorScheme(): EInkColorScheme = LocalEInkColorScheme.current
 @Composable
 fun eInkTypography(): EInkTypographySystem = LocalEInkTypography.current
 
+@Composable
+fun eInkContentColor(): Color = LocalEInkContentColor.current
+
 // Internal CompositionLocals
 internal val LocalEInkColorScheme = androidx.compose.runtime.compositionLocalOf<EInkColorScheme> {
     error("No EInkColorScheme provided")
@@ -238,4 +244,8 @@ internal val LocalEInkColorScheme = androidx.compose.runtime.compositionLocalOf<
 
 internal val LocalEInkTypography = androidx.compose.runtime.compositionLocalOf<EInkTypographySystem> {
     error("No EInkTypography provided")
+}
+
+internal val LocalEInkContentColor = androidx.compose.runtime.compositionLocalOf<Color> {
+    Color.Unspecified
 }

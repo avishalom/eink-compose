@@ -236,6 +236,7 @@ fun EInkOutlinedTextField(
 /**
  * Colors for E-Ink text fields
  */
+@Stable
 data class EInkTextFieldColors(
     val textColor: Color,
     val disabledTextColor: Color,

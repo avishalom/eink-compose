@@ -50,16 +50,17 @@ fun EInkText(
     maxLines: Int = Int.MAX_VALUE,
     style: TextStyle = eInkTypography().bodyMedium
 ) {
-    // Ensure minimum font size compliance
+    // Ensure minimum font size compliance with proper TextUnit.Unspecified handling
     val enforcedFontSize = when {
         fontSize != TextUnit.Unspecified && fontSize < EInkConstants.Typography.MIN_FONT_SIZE -> {
             EInkConstants.Typography.MIN_FONT_SIZE
         }
         fontSize != TextUnit.Unspecified -> fontSize
-        style.fontSize < EInkConstants.Typography.MIN_FONT_SIZE -> {
+        style.fontSize != TextUnit.Unspecified && style.fontSize < EInkConstants.Typography.MIN_FONT_SIZE -> {
             EInkConstants.Typography.MIN_FONT_SIZE
         }
-        else -> style.fontSize
+        style.fontSize != TextUnit.Unspecified -> style.fontSize
+        else -> EInkConstants.Typography.MIN_FONT_SIZE // Fallback to minimum if both are unspecified
     }
     
     val finalStyle = style.copy(

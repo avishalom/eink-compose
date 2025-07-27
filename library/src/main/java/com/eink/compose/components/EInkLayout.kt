@@ -4,9 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RectangleShape
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.eink.compose.theme.eInkColorScheme
 import com.eink.compose.theme.eInkTypography
 import com.eink.compose.utils.EInkConstants
+
+// Local content color for this component
+private val LocalContentColor = compositionLocalOf<Color> { Color.Unspecified }
 
 /**
  * E-Ink optimized Row component with generous spacing defaults.

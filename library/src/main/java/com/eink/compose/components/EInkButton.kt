@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -140,6 +141,7 @@ fun EInkTextButton(
 /**
  * Button colors for E-Ink themes
  */
+@Stable
 data class EInkButtonColors(
     val containerColor: Color,
     val contentColor: Color,
